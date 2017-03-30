@@ -4,6 +4,8 @@ import android.net.Uri;
 import android.util.Log;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -20,19 +22,49 @@ public class TheMovieDbService {
     private static String BASE_URL = "https://api.themoviedb.org/3";
     private final String apiKey;
 
+    public class MovieData {
+        private String originalTitle;
+        private String posterPath;
+
+        public MovieData(String originalTitle, String posterPath) {
+            this.originalTitle = originalTitle;
+            this.posterPath = posterPath;
+        }
+
+        public String getOriginalTitle() {
+            return originalTitle;
+        }
+
+        public String getPosterPath() {
+            return posterPath;
+        }
+    }
+
     public TheMovieDbService(String apiKey) {
         this.apiKey = apiKey;
     }
 
-    public String popularMovies() {
-        String response = "";
+    public MovieData[] popularMovies() {
+        MovieData[] movies = null;
+
         try {
-            response = getApiResponse("/movie/popular");
+            JSONArray results = new JSONObject(getApiResponse("/movie/popular")).getJSONArray("results");
+            movies = new MovieData[results.length()];
+
+            for (int i = 0; i < results.length(); i++) {
+
+                JSONObject result = null;
+                result = results.getJSONObject(i);
+
+                movies[i] = new MovieData(result.getString("original_title"), result.getString("poster_path"));
+            }
         } catch (IOException e) {
             Log.d("TheMovieDbService", "failed to fetch popular movies", e);
+        } catch (JSONException e) {
+            Log.d("TheMovieDbService", "unexpected response format", e);
         }
 
-        return response;
+        return movies;
     }
 
     protected String getApiResponse(String apiMethod) throws IOException {
