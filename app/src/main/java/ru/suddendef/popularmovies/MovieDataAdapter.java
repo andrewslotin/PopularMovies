@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -35,6 +37,10 @@ public class MovieDataAdapter extends RecyclerView.Adapter<MovieDataAdapter.View
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         TheMovieDbService.MovieData movie = movies.get(position);
+        Picasso.with(context)
+                .load(movie.getPosterPath(TheMovieDbService.THUMBNAIL))
+                .fit()
+                .into(holder.moviePosterView);
     }
 
     @Override
