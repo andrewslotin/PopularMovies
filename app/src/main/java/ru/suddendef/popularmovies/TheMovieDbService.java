@@ -12,6 +12,7 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -44,19 +45,17 @@ public class TheMovieDbService {
         this.apiKey = apiKey;
     }
 
-    public MovieData[] popularMovies() {
-        MovieData[] movies = null;
+    public ArrayList<MovieData> popularMovies() {
+        ArrayList<MovieData> movies = new ArrayList<>();
 
         try {
             JSONArray results = new JSONObject(getApiResponse("/movie/popular")).getJSONArray("results");
-            movies = new MovieData[results.length()];
 
             for (int i = 0; i < results.length(); i++) {
+                JSONObject result = results.getJSONObject(i);
 
-                JSONObject result = null;
-                result = results.getJSONObject(i);
-
-                movies[i] = new MovieData(result.getString("original_title"), result.getString("poster_path"));
+                MovieData movie = new MovieData(result.getString("original_title"), result.getString("poster_path"));
+                movies.add(movie);
             }
         } catch (IOException e) {
             Log.d("TheMovieDbService", "failed to fetch popular movies", e);
