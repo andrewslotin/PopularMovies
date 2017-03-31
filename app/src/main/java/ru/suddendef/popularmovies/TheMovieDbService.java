@@ -21,9 +21,14 @@ import java.util.Scanner;
 
 public class TheMovieDbService {
     private static String BASE_URL = "https://api.themoviedb.org/3";
+    private static String BASE_IMAGE_URL = "http://image.tmdb.org/t/p";
+
+    public static String THUMBNAIL = "/w185";
+
     private final String apiKey;
 
     public class MovieData {
+
         private String originalTitle;
         private String posterPath;
 
@@ -36,8 +41,8 @@ public class TheMovieDbService {
             return originalTitle;
         }
 
-        public String getPosterPath() {
-            return posterPath;
+        public String getPosterPath(String size) {
+            return BASE_IMAGE_URL + size + posterPath;
         }
     }
 
