@@ -28,10 +28,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private class TopRatedMoviesQuery extends FetchMoviesQuery {
         @Override
-        protected void onPostExecute(Collection<TheMovieDbService.MovieData> movies) {
-            moviesAdapter.setMovies(movies);
-            super.onPostExecute(movies);
+        protected Collection<TheMovieDbService.MovieData> doInBackground(Void... params) {
+            return movieDb.topRatedMovies();
         }
     }
 
@@ -67,6 +67,8 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_most_popular:
                 new MostPopularMoviesQuery().execute();
+            case R.id.action_top_rated:
+                new TopRatedMoviesQuery().execute();
             default:
                 return super.onOptionsItemSelected(item);
         }
