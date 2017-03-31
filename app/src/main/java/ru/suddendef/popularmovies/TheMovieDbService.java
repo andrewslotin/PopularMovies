@@ -54,14 +54,8 @@ public class TheMovieDbService {
         ArrayList<MovieData> movies = new ArrayList<>();
 
         try {
-            JSONArray results = new JSONObject(getApiResponse("/movie/popular")).getJSONArray("results");
-
-            for (int i = 0; i < results.length(); i++) {
-                JSONObject result = results.getJSONObject(i);
-
-                MovieData movie = new MovieData(result.getString("original_title"), result.getString("poster_path"));
-                movies.add(movie);
-            }
+            String response = getApiResponse("/movie/popular");
+            appendMoviesFromJSON(response, movies);
         } catch (IOException e) {
             Log.d("TheMovieDbService", "failed to fetch popular movies", e);
         } catch (JSONException e) {
@@ -69,6 +63,32 @@ public class TheMovieDbService {
         }
 
         return movies;
+    }
+
+    public ArrayList<MovieData> topRatedMovies() {
+        ArrayList<MovieData> movies = new ArrayList<>();
+
+        try {
+            String response = getApiResponse("/movie/top_rated");
+            appendMoviesFromJSON(response, movies);
+        } catch (IOException e) {
+            Log.d("TheMovieDbService", "failed to fetch top rated movies", e);
+        } catch (JSONException e) {
+            Log.d("TheMovieDbService", "unexpected response format", e);
+        }
+
+        return movies;
+    }
+
+    protected void appendMoviesFromJSON(String jsonData, ArrayList<MovieData> movies) throws IOException, JSONException {
+        JSONArray results = new JSONObject(jsonData).getJSONArray("results");
+
+        for (int i = 0; i < results.length(); i++) {
+            JSONObject result = results.getJSONObject(i);
+
+            MovieData movie = new MovieData(result.getString("original_title"), result.getString("poster_path"));
+            movies.add(movie);
+        }
     }
 
     protected String getApiResponse(String apiMethod) throws IOException {
