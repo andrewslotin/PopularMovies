@@ -13,11 +13,20 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class MainActivity extends AppCompatActivity {
-    private class MovieDbQuery extends AsyncTask<Void, Void, Collection<TheMovieDbService.MovieData>> {
+    abstract private class FetchMoviesQuery extends AsyncTask<Void, Void, Collection<TheMovieDbService.MovieData>> {
+        @Override
+        protected void onPostExecute(Collection<TheMovieDbService.MovieData> movies) {
+            moviesAdapter.setMovies(movies);
+            super.onPostExecute(movies);
+        }
+    }
+
+    private class MostPopularMoviesQuery extends FetchMoviesQuery {
         @Override
         protected Collection<TheMovieDbService.MovieData> doInBackground(Void... params) {
             return movieDb.popularMovies();
         }
+    }
 
         @Override
         protected void onPostExecute(Collection<TheMovieDbService.MovieData> movies) {
@@ -43,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         moviePostersView.setHasFixedSize(true);
 
         movieDb = new TheMovieDbService(getString(R.string.api_key));
-        new MovieDbQuery().execute();
+        new MostPopularMoviesQuery().execute();
     }
 
     @Override
@@ -56,8 +65,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_refresh:
-                new MovieDbQuery().execute();
+            case R.id.action_most_popular:
+                new MostPopularMoviesQuery().execute();
             default:
                 return super.onOptionsItemSelected(item);
         }
