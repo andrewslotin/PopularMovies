@@ -43,6 +43,12 @@ public class MovieDataAdapter extends RecyclerView.Adapter<MovieDataAdapter.View
         return movies.size();
     }
 
+    public void setMovies(Collection<TheMovieDbService.MovieData> movies) {
+        this.movies.clear();
+        this.movies.addAll(movies);
+        notifyDataSetChanged();
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView originalTitleView;
 
