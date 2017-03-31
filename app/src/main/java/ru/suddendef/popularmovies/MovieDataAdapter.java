@@ -5,7 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.ImageView;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -35,7 +35,6 @@ public class MovieDataAdapter extends RecyclerView.Adapter<MovieDataAdapter.View
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         TheMovieDbService.MovieData movie = movies.get(position);
-        holder.originalTitleView.setText(movie.getOriginalTitle());
     }
 
     @Override
@@ -50,11 +49,11 @@ public class MovieDataAdapter extends RecyclerView.Adapter<MovieDataAdapter.View
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView originalTitleView;
+        ImageView moviePosterView;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            originalTitleView = (TextView) itemView.findViewById(R.id.tv_movie_title);
+            moviePosterView= (ImageView) itemView.findViewById(R.id.iv_movie_poster);
         }
     }
 }
