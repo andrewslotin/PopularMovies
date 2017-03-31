@@ -1,13 +1,29 @@
 package ru.suddendef.popularmovies;
 
-gimport android.support.v7.app.AppCompatActivity;
+import android.os.AsyncTask;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 public class MainActivity extends AppCompatActivity {
+    private class MovieDbQuery extends AsyncTask<Void, Void, Collection<TheMovieDbService.MovieData>> {
+        @Override
+        protected Collection<TheMovieDbService.MovieData> doInBackground(Void... params) {
+            return movieDb.popularMovies();
+        }
+
+        @Override
+        protected void onPostExecute(Collection<TheMovieDbService.MovieData> movies) {
+            moviesAdapter.setMovies(movies);
+            super.onPostExecute(movies);
+        }
+    }
+
+    private TheMovieDbService movieDb;
     private MovieDataAdapter moviesAdapter;
 
     @Override
@@ -22,5 +38,8 @@ public class MainActivity extends AppCompatActivity {
         moviePostersView.setLayoutManager(layoutManager);
         moviePostersView.setAdapter(moviesAdapter);
         moviePostersView.setHasFixedSize(true);
+
+        movieDb = new TheMovieDbService(getString(R.string.api_key));
+        new MovieDbQuery().execute();
     }
 }
