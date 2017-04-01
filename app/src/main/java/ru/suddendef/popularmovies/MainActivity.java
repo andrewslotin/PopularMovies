@@ -1,5 +1,6 @@
 package ru.suddendef.popularmovies;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,7 +13,7 @@ import android.view.MenuItem;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MovieDataAdapter.MoviePosterClickListener {
     abstract private class FetchMoviesQuery extends AsyncTask<Void, Void, Collection<TheMovieDbService.MovieData>> {
         @Override
         protected void onPostExecute(Collection<TheMovieDbService.MovieData> movies) {
@@ -44,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         GridLayoutManager layoutManager = new GridLayoutManager(this, 3);
-        moviesAdapter = new MovieDataAdapter(this, new ArrayList<TheMovieDbService.MovieData>());
+        moviesAdapter = new MovieDataAdapter(this, new ArrayList<TheMovieDbService.MovieData>(), this);
 
         RecyclerView moviePostersView = (RecyclerView) findViewById(R.id.rv_movie_posters);
         moviePostersView.setLayoutManager(layoutManager);
@@ -74,5 +75,12 @@ public class MainActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void onMoviePosterClick(int movieId) {
+        Intent intent = new Intent(this, DetailsActivity.class);
+        intent.putExtra(DetailsActivity.EXTRA_MOVIE_ID, movieId);
+        startActivity(intent);
     }
 }

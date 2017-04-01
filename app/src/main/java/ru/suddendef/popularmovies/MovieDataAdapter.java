@@ -22,10 +22,17 @@ public class MovieDataAdapter extends RecyclerView.Adapter<MovieDataAdapter.View
     private LayoutInflater inflater;
     private List<TheMovieDbService.MovieData> movies;
 
-    public MovieDataAdapter(Context context, ArrayList<TheMovieDbService.MovieData> objects) {
+    private final MoviePosterClickListener moviePosterClickListener;
+
+    public interface MoviePosterClickListener {
+        void onMoviePosterClick(int movieId);
+    }
+
+    public MovieDataAdapter(Context context, ArrayList<TheMovieDbService.MovieData> objects, MoviePosterClickListener listener) {
         this.inflater = LayoutInflater.from(context);
         this.context = context;
         this.movies = objects;
+        this.moviePosterClickListener = listener;
     }
 
     @Override
@@ -54,12 +61,28 @@ public class MovieDataAdapter extends RecyclerView.Adapter<MovieDataAdapter.View
         notifyDataSetChanged();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    private void onMoviePosterClicked(int itemIndex) {
+        TheMovieDbService.MovieData movie = movies.get(itemIndex);
+        if (movie == null) {
+            return;
+        }
+
+        moviePosterClickListener.onMoviePosterClick(movie.getId());
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView moviePosterView;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            moviePosterView= (ImageView) itemView.findViewById(R.id.iv_movie_poster);
+            moviePosterView = (ImageView) itemView.findViewById(R.id.iv_movie_poster);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            int clickedPosition = getAdapterPosition();
+            onMoviePosterClicked(clickedPosition);
         }
     }
 }

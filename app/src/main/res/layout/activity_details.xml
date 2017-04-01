@@ -16,12 +16,10 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:contentDescription="@string/movie_poster_large_description"/>
-
+<!--
     <ScrollView
         android:layout_width="368dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="0dp"
-        android:layout_marginRight="0dp"
         android:layout_marginTop="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -75,7 +73,7 @@
 
             <TextView
                 android:id="@+id/tv_overview"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:layout_marginLeft="8dp"
@@ -88,5 +86,5 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_user_rating" />
         </android.support.constraint.ConstraintLayout>
     </ScrollView>
-
+-->
 </android.support.constraint.ConstraintLayout>
