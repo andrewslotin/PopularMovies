@@ -1,6 +1,7 @@
 package ru.suddendef.popularmovies;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Transformation;
 
 import java.util.Locale;
 
@@ -34,6 +36,27 @@ public class DetailsActivity extends AppCompatActivity {
     private TextView releaseDateView;
     private TextView userRatingView;
     private TextView overviewView;
+
+    private final Transformation keepAspectRationTransformation = new Transformation() {
+        @Override
+        public Bitmap transform(Bitmap source) {
+            double aspectRatio = (double) source.getHeight() / source.getWidth();
+            int targetWidth = moviePosterView.getWidth();
+            int targetHeight = (int) (targetWidth * aspectRatio);
+
+            Bitmap result = Bitmap.createScaledBitmap(source, targetWidth, targetHeight, false);
+            if (result != source) {
+                source.recycle();
+            }
+
+            return result;
+        }
+
+        @Override
+        public String key() {
+            return "transformation keepAspectRatio";
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +89,7 @@ public class DetailsActivity extends AppCompatActivity {
 
         Picasso.with(this)
                 .load(movie.getPosterUrlString(TheMovieDbService.LARGE))
-                .fit()
+                .transform(keepAspectRationTransformation)
                 .into(moviePosterView);
     }
 }
