@@ -102,6 +102,22 @@ public class TheMovieDbService {
         return movies;
     }
 
+    public MovieData getMovieById(int movieId) {
+        MovieData movie = null;
+        String movieIdString = String.valueOf(movieId);
+
+        try {
+            String response = getApiResponse("/movie/" + movieIdString);
+            movie = decodeMovieJSON(new JSONObject(response));
+        } catch (IOException e) {
+            Log.d("TheMovieDbService", "failed to fetch movie id:" + movieIdString, e);
+        } catch (JSONException e) {
+            Log.d("TheMovieDbService", "/movie/" + movieIdString + " responded with non-JSON", e);
+        }
+
+        return movie;
+    }
+
     protected void appendMoviesFromJSON(String jsonData, ArrayList<MovieData> movies) throws IOException, JSONException {
         JSONArray results = new JSONObject(jsonData).getJSONArray("results");
 
