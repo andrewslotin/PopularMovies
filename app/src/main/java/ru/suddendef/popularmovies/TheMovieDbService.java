@@ -27,6 +27,19 @@ public class TheMovieDbService {
 
     private final String apiKey;
 
+    public class UnexpectedResponseCode extends Exception {
+        private int responseCode;
+
+        public UnexpectedResponseCode(String request, int responseCode) {
+            super(request + " responded with HTTP " + String.valueOf(responseCode));
+            this.responseCode = responseCode;
+        }
+
+        public int getResponseCode() {
+            return responseCode;
+        }
+    }
+
     public class MovieData {
 
         private String originalTitle;
@@ -93,10 +106,15 @@ public class TheMovieDbService {
 
     protected String getApiResponse(String apiMethod) throws IOException {
         URL url = getApiUrl(apiMethod);
-
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
         String data = "";
         try {
+            int responseCode = connection.getResponseCode();
+            if (responseCode != HttpURLConnection.HTTP_OK) {
+                throw new UnexpectedResponseCode(apiMethod, responseCode);
+            }
+
             InputStream in = connection.getInputStream();
             Scanner scanner = new Scanner(in);
             scanner.useDelimiter("\\A");
@@ -104,6 +122,8 @@ public class TheMovieDbService {
             if (scanner.hasNext()) {
                 data = scanner.next();
             }
+        } catch (UnexpectedResponseCode e) {
+            Log.d("TheMovieDbService", "", e);
         } finally {
             connection.disconnect();
         }
