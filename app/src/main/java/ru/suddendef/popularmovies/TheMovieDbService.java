@@ -41,13 +41,18 @@ public class TheMovieDbService {
     }
 
     public class MovieData {
-
+        private int id;
         private String originalTitle;
         private String posterPath;
 
-        public MovieData(String originalTitle, String posterPath) {
+        public MovieData(int id, String originalTitle, String posterPath) {
+            this.id = id;
             this.originalTitle = originalTitle;
             this.posterPath = posterPath;
+        }
+
+        public int getId() {
+            return id;
         }
 
         public String getOriginalTitle() {
@@ -107,10 +112,11 @@ public class TheMovieDbService {
     }
 
     protected MovieData decodeMovieJSON(JSONObject jsonObject) throws JSONException {
+        int movieId = jsonObject.getInt("id");
         String originalTitle = jsonObject.getString("original_title");
         String posterPath = jsonObject.getString("poster_path");
 
-        return new MovieData(originalTitle, posterPath);
+        return new MovieData(movieId, originalTitle, posterPath);
     }
 
     protected String getApiResponse(String apiMethod) throws IOException {
