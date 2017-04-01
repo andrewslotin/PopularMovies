@@ -67,8 +67,10 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_most_popular:
                 new MostPopularMoviesQuery().execute();
+                return true;
             case R.id.action_top_rated:
                 new TopRatedMoviesQuery().execute();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
