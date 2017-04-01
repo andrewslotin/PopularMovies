@@ -33,6 +33,7 @@ public class DetailsActivity extends AppCompatActivity {
     private ImageView moviePosterView;
     private TextView releaseDateView;
     private TextView userRatingView;
+    private TextView overviewView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +44,7 @@ public class DetailsActivity extends AppCompatActivity {
         moviePosterView = (ImageView) findViewById(R.id.iv_movie_poster_large);
         releaseDateView = (TextView) findViewById(R.id.tv_release_date);
         userRatingView = (TextView) findViewById(R.id.tv_user_rating);
+        overviewView = (TextView) findViewById(R.id.tv_overview);
 
         movieDb = new TheMovieDbService(getString(R.string.api_key));
 
@@ -60,6 +62,7 @@ public class DetailsActivity extends AppCompatActivity {
 
         releaseDateView.setText(movie.getReleaseDate());
         userRatingView.setText(String.format(Locale.getDefault(), getString(R.string.user_rating_format), movie.getUserRating()));
+        overviewView.setText(movie.getOverview());
 
         Picasso.with(this)
                 .load(movie.getPosterUrlString(TheMovieDbService.THUMBNAIL))
