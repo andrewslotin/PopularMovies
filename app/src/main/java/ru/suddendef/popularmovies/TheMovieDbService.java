@@ -54,7 +54,11 @@ public class TheMovieDbService {
             return originalTitle;
         }
 
-        public String getPosterPath(String size) {
+        public String getPosterPath() {
+            return posterPath;
+        }
+
+        public String getPosterUrlString(String size) {
             return BASE_IMAGE_URL + size + posterPath;
         }
     }

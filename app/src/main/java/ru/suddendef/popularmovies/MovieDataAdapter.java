@@ -38,7 +38,7 @@ public class MovieDataAdapter extends RecyclerView.Adapter<MovieDataAdapter.View
     public void onBindViewHolder(ViewHolder holder, int position) {
         TheMovieDbService.MovieData movie = movies.get(position);
         Picasso.with(context)
-                .load(movie.getPosterPath(TheMovieDbService.THUMBNAIL))
+                .load(movie.getPosterUrlString(TheMovieDbService.THUMBNAIL))
                 .fit()
                 .into(holder.moviePosterView);
     }
