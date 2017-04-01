@@ -98,10 +98,15 @@ public class TheMovieDbService {
 
         for (int i = 0; i < results.length(); i++) {
             JSONObject result = results.getJSONObject(i);
-
-            MovieData movie = new MovieData(result.getString("original_title"), result.getString("poster_path"));
-            movies.add(movie);
+            movies.add(decodeMovieJSON(result));
         }
+    }
+
+    protected MovieData decodeMovieJSON(JSONObject jsonObject) throws JSONException {
+        String originalTitle = jsonObject.getString("original_title");
+        String posterPath = jsonObject.getString("poster_path");
+
+        return new MovieData(originalTitle, posterPath);
     }
 
     protected String getApiResponse(String apiMethod) throws IOException {
