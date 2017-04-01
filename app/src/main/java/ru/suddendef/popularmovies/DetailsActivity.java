@@ -6,8 +6,11 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
+
+import java.util.Locale;
 
 public class DetailsActivity extends AppCompatActivity {
     public static final String EXTRA_MOVIE_ID = "ru.suddendef.popularmovies.MOVIE_ID";
@@ -28,6 +31,8 @@ public class DetailsActivity extends AppCompatActivity {
     private TheMovieDbService movieDb;
     private ActionBar actionBar;
     private ImageView moviePosterView;
+    private TextView releaseDateView;
+    private TextView userRatingView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +41,9 @@ public class DetailsActivity extends AppCompatActivity {
 
         actionBar = getSupportActionBar();
         moviePosterView = (ImageView) findViewById(R.id.iv_movie_poster_large);
+        releaseDateView = (TextView) findViewById(R.id.tv_release_date);
+        userRatingView = (TextView) findViewById(R.id.tv_user_rating);
+
         movieDb = new TheMovieDbService(getString(R.string.api_key));
 
         Intent intent = getIntent();
@@ -49,6 +57,10 @@ public class DetailsActivity extends AppCompatActivity {
 
     protected void setMovieData(TheMovieDbService.MovieData movie) {
         actionBar.setTitle(movie.getOriginalTitle());
+
+        releaseDateView.setText(movie.getReleaseDate());
+        userRatingView.setText(String.format(Locale.getDefault(), getString(R.string.user_rating_format), movie.getUserRating()));
+
         Picasso.with(this)
                 .load(movie.getPosterUrlString(TheMovieDbService.THUMBNAIL))
                 .fit()

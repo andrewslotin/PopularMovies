@@ -5,4 +5,5 @@
     <string name="release_date_label">Released on:</string>
     <string name="user_rating_label">User rating:</string>
     <string name="movie_poster_large_description">Movie poster</string>
+    <string name="user_rating_format">%.1f</string>
 </resources>
