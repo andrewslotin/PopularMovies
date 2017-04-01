@@ -65,7 +65,7 @@ public class DetailsActivity extends AppCompatActivity {
         overviewView.setText(movie.getOverview());
 
         Picasso.with(this)
-                .load(movie.getPosterUrlString(TheMovieDbService.THUMBNAIL))
+                .load(movie.getPosterUrlString(TheMovieDbService.LARGE))
                 .fit()
                 .into(moviePosterView);
     }

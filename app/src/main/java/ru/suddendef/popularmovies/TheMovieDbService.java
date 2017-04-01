@@ -20,10 +20,11 @@ import java.util.Scanner;
  */
 
 public class TheMovieDbService {
-    private static String BASE_URL = "https://api.themoviedb.org/3";
-    private static String BASE_IMAGE_URL = "http://image.tmdb.org/t/p";
+    private static final String BASE_URL = "https://api.themoviedb.org/3";
+    private static final String BASE_IMAGE_URL = "http://image.tmdb.org/t/p";
 
-    public static String THUMBNAIL = "/w185";
+    public static final String THUMBNAIL = "/w185";
+    public static final String LARGE = "/w500";
 
     private final String apiKey;
 
@@ -65,15 +66,21 @@ public class TheMovieDbService {
             return originalTitle;
         }
 
-        public String getReleaseDate() { return releaseDate; }
+        public String getReleaseDate() {
+            return releaseDate;
+        }
 
         public String getPosterPath() {
             return posterPath;
         }
 
-        public double getUserRating() { return userRating; }
+        public double getUserRating() {
+            return userRating;
+        }
 
-        public String getOverview() { return overview; }
+        public String getOverview() {
+            return overview;
+        }
 
         public String getPosterUrlString(String size) {
             return BASE_IMAGE_URL + size + posterPath;
