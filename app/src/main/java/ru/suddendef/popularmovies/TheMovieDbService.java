@@ -46,13 +46,15 @@ public class TheMovieDbService {
         private String posterPath;
         private double userRating;
         private String releaseDate;
+        private String overview;
 
-        public MovieData(int id, String originalTitle, String releaseDate, double userRating, String posterPath) {
+        public MovieData(int id, String originalTitle, String releaseDate, double userRating, String posterPath, String overview) {
             this.id = id;
             this.originalTitle = originalTitle;
             this.releaseDate = releaseDate;
             this.userRating = userRating;
             this.posterPath = posterPath;
+            this.overview = overview;
         }
 
         public int getId() {
@@ -70,6 +72,8 @@ public class TheMovieDbService {
         }
 
         public double getUserRating() { return userRating; }
+
+        public String getOverview() { return overview; }
 
         public String getPosterUrlString(String size) {
             return BASE_IMAGE_URL + size + posterPath;
@@ -141,8 +145,9 @@ public class TheMovieDbService {
         double userRating = jsonObject.getDouble("vote_average");
         String posterPath = jsonObject.getString("poster_path");
         String releaseDate = jsonObject.getString("release_date");
+        String overview = jsonObject.getString("overview");
 
-        return new MovieData(movieId, originalTitle, releaseDate, userRating, posterPath);
+        return new MovieData(movieId, originalTitle, releaseDate, userRating, posterPath, overview);
     }
 
     protected String getApiResponse(String apiMethod) throws IOException {
