@@ -72,7 +72,7 @@ public class TheMovieDbService {
         } catch (IOException e) {
             Log.d("TheMovieDbService", "failed to fetch popular movies", e);
         } catch (JSONException e) {
-            Log.d("TheMovieDbService", "unexpected response format", e);
+            Log.d("TheMovieDbService", "/movie/popular responded with non-JSON", e);
         }
 
         return movies;
@@ -87,7 +87,7 @@ public class TheMovieDbService {
         } catch (IOException e) {
             Log.d("TheMovieDbService", "failed to fetch top rated movies", e);
         } catch (JSONException e) {
-            Log.d("TheMovieDbService", "unexpected response format", e);
+            Log.d("TheMovieDbService", "/movie/top_rated responded with non-JSON", e);
         }
 
         return movies;
