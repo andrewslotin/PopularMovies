@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="large_poster_height">250dp</dimen>
+    <dimen name="outer_margin">16dp</dimen>
+    <dimen name="text_field_label_margin">4dp</dimen>
+    <dimen name="line_margin">4dp</dimen>
+    <dimen name="overview_text_size">12sp</dimen>
+</resources>
