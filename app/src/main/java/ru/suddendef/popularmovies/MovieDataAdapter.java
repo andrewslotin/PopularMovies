@@ -47,6 +47,8 @@ public class MovieDataAdapter extends RecyclerView.Adapter<MovieDataAdapter.View
         Picasso.with(context)
                 .load(movie.getPosterUrlString(TheMovieDbService.THUMBNAIL))
                 .fit()
+                .placeholder(R.drawable.ic_poster_placeholder)
+                .error(R.drawable.ic_poster_error_placeholder)
                 .into(holder.moviePosterView);
     }
 

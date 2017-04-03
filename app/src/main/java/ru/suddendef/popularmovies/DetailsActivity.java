@@ -92,6 +92,8 @@ public class DetailsActivity extends AppCompatActivity {
         Picasso.with(this)
                 .load(posterUrlString)
                 .transform(keepAspectRationTransformation)
+                .placeholder(R.drawable.ic_poster_placeholder)
+                .error(R.drawable.ic_poster_error_placeholder)
                 .into(moviePosterView);
     }
 }
