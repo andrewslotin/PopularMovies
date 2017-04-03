@@ -14,6 +14,9 @@ import com.squareup.picasso.Transformation;
 
 import java.util.Locale;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class DetailsActivity extends AppCompatActivity {
     public static final String EXTRA_MOVIE_ID = "ru.suddendef.popularmovies.MOVIE_ID";
 
@@ -32,10 +35,11 @@ public class DetailsActivity extends AppCompatActivity {
 
     private TheMovieDbService movieDb;
     private ActionBar actionBar;
-    private ImageView moviePosterView;
-    private TextView releaseDateView;
-    private TextView userRatingView;
-    private TextView overviewView;
+
+    @BindView(R.id.iv_movie_poster_large) ImageView moviePosterView;
+    @BindView(R.id.tv_release_date) TextView releaseDateView;
+    @BindView(R.id.tv_user_rating) TextView userRatingView;
+    @BindView(R.id.tv_overview) TextView overviewView;
 
     private final Transformation keepAspectRationTransformation = new Transformation() {
         @Override
@@ -62,13 +66,9 @@ public class DetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
+        ButterKnife.bind(this);
 
         actionBar = getSupportActionBar();
-        moviePosterView = (ImageView) findViewById(R.id.iv_movie_poster_large);
-        releaseDateView = (TextView) findViewById(R.id.tv_release_date);
-        userRatingView = (TextView) findViewById(R.id.tv_user_rating);
-        overviewView = (TextView) findViewById(R.id.tv_overview);
-
         movieDb = new TheMovieDbService(getString(R.string.api_key));
 
         Intent intent = getIntent();
