@@ -1,7 +1,6 @@
 package ru.suddendef.popularmovies;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -13,16 +12,15 @@ import android.view.MenuItem;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class MainActivity extends AppCompatActivity implements MovieDataAdapter.MoviePosterClickListener {
-    abstract private class FetchMoviesQuery extends AsyncTask<Void, Void, Collection<TheMovieDbService.MovieData>> {
-        @Override
-        protected void onPostExecute(Collection<TheMovieDbService.MovieData> movies) {
-            moviesAdapter.setMovies(movies);
-            super.onPostExecute(movies);
-        }
-    }
+public class MainActivity
+        extends AppCompatActivity
+        implements MovieDataAdapter.MoviePosterClickListener, FetchDataCompleteListener<Collection<TheMovieDbService.MovieData>> {
 
     private class MostPopularMoviesQuery extends FetchMoviesQuery {
+        private MostPopularMoviesQuery(FetchDataCompleteListener listener) {
+            super(listener);
+        }
+
         @Override
         protected Collection<TheMovieDbService.MovieData> doInBackground(Void... params) {
             return movieDb.popularMovies();
@@ -30,6 +28,10 @@ public class MainActivity extends AppCompatActivity implements MovieDataAdapter.
     }
 
     private class TopRatedMoviesQuery extends FetchMoviesQuery {
+        private TopRatedMoviesQuery(FetchDataCompleteListener listener) {
+            super(listener);
+        }
+
         @Override
         protected Collection<TheMovieDbService.MovieData> doInBackground(Void... params) {
             return movieDb.topRatedMovies();
@@ -53,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements MovieDataAdapter.
         moviePostersView.setHasFixedSize(true);
 
         movieDb = new TheMovieDbService(getString(R.string.api_key));
-        new MostPopularMoviesQuery().execute();
+        new MostPopularMoviesQuery(this).execute();
     }
 
     @Override
@@ -67,10 +69,10 @@ public class MainActivity extends AppCompatActivity implements MovieDataAdapter.
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_most_popular:
-                new MostPopularMoviesQuery().execute();
+                new MostPopularMoviesQuery(this).execute();
                 return true;
             case R.id.action_top_rated:
-                new TopRatedMoviesQuery().execute();
+                new TopRatedMoviesQuery(this).execute();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -82,5 +84,10 @@ public class MainActivity extends AppCompatActivity implements MovieDataAdapter.
         Intent intent = new Intent(this, DetailsActivity.class);
         intent.putExtra(DetailsActivity.EXTRA_MOVIE_ID, movieId);
         startActivity(intent);
+    }
+
+    @Override
+    public void onFetchDataTaskComplete(Collection<TheMovieDbService.MovieData> movies) {
+        moviesAdapter.setMovies(movies);
     }
 }
