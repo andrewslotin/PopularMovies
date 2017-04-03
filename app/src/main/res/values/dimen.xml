@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="grid_poster_width">120dp</dimen>
+    <dimen name="grid_poster_height">200dp</dimen>
     <dimen name="large_poster_height">250dp</dimen>
     <dimen name="outer_margin">16dp</dimen>
     <dimen name="text_field_label_margin">4dp</dimen>

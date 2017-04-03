@@ -87,8 +87,10 @@ public class DetailsActivity extends AppCompatActivity {
         userRatingView.setText(String.format(Locale.getDefault(), getString(R.string.user_rating_format), movie.getUserRating()));
         overviewView.setText(movie.getOverview());
 
+        final String posterUrlString = movie.getPosterUrlString(TheMovieDbService.LARGE);
+
         Picasso.with(this)
-                .load(movie.getPosterUrlString(TheMovieDbService.LARGE))
+                .load(posterUrlString)
                 .transform(keepAspectRationTransformation)
                 .into(moviePosterView);
     }

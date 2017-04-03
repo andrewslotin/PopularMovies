@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -40,13 +42,17 @@ public class MainActivity
 
     private TheMovieDbService movieDb;
     private MovieDataAdapter moviesAdapter;
+    private DisplayMetrics displayMetrics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        GridLayoutManager layoutManager = new GridLayoutManager(this, 3);
+        displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+
+        GridLayoutManager layoutManager = new GridLayoutManager(this, gridColumnsNumber());
         moviesAdapter = new MovieDataAdapter(this, new ArrayList<TheMovieDbService.MovieData>(), this);
 
         RecyclerView moviePostersView = (RecyclerView) findViewById(R.id.rv_movie_posters);
@@ -89,5 +95,11 @@ public class MainActivity
     @Override
     public void onFetchDataTaskComplete(Collection<TheMovieDbService.MovieData> movies) {
         moviesAdapter.setMovies(movies);
+    }
+
+    private int gridColumnsNumber() {
+        float gridCellWidthDp = getResources().getDimension(R.dimen.grid_poster_width);
+
+        return (int)(displayMetrics.widthPixels/ gridCellWidthDp);
     }
 }

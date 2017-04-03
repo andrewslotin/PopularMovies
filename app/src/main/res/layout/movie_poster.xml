@@ -3,11 +3,11 @@
     android:gravity="center|center_vertical"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="205dp">
+    android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/iv_movie_poster"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="@dimen/grid_poster_height"
         android:scaleType="centerCrop"/>
 </RelativeLayout>
