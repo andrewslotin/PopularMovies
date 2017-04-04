@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -11,22 +12,22 @@
 
         <ImageView
             android:id="@+id/iv_movie_poster_large"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="250dp"
             android:layout_margin="0dp"
             android:contentDescription="@string/movie_poster_large_description"
             android:scaleType="centerCrop"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <TextView
             android:id="@+id/tv_release_date_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/outer_margin"
             android:layout_marginLeft="@dimen/outer_margin"
             android:layout_marginStart="@dimen/outer_margin"
+            android:layout_marginTop="@dimen/outer_margin"
             android:text="@string/release_date_label"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/iv_movie_poster_large" />
@@ -38,7 +39,8 @@
             android:layout_marginLeft="@dimen/text_field_label_margin"
             android:layout_marginStart="@dimen/text_field_label_margin"
             app:layout_constraintLeft_toRightOf="@+id/tv_release_date_label"
-            app:layout_constraintTop_toTopOf="@+id/tv_release_date_label" />
+            app:layout_constraintTop_toTopOf="@+id/tv_release_date_label"
+            tools:text="2017-04-04" />
 
         <TextView
             android:id="@+id/tv_user_rating_label"
@@ -58,7 +60,8 @@
             android:layout_marginLeft="@dimen/text_field_label_margin"
             android:layout_marginStart="@dimen/text_field_label_margin"
             app:layout_constraintLeft_toRightOf="@+id/tv_user_rating_label"
-            app:layout_constraintTop_toTopOf="@+id/tv_user_rating_label" />
+            app:layout_constraintTop_toTopOf="@+id/tv_user_rating_label"
+            tools:text="10.0"/>
 
         <TextView
             android:id="@+id/tv_overview"
@@ -68,7 +71,16 @@
             android:textSize="@dimen/overview_text_size"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_user_rating" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_user_rating"
+            tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus condimentum ligula posuere metus hendrerit, id semper enim sodales. Duis semper massa a tortor molestie, in scelerisque quam lobortis. Donec a orci nunc. Maecenas eu elit in lorem iaculis ornare. Nulla finibus tempor elementum. Donec malesuada egestas felis ut sollicitudin. Morbi ut dapibus ex. Aliquam volutpat quam eget mauris imperdiet tincidunt. Duis et nulla eleifend orci scelerisque euismod vitae nec erat.
+
+Vivamus finibus felis mi, in vulputate lectus facilisis et. Vivamus ut pulvinar ligula. Curabitur et turpis eu dolor laoreet pulvinar. Cras vitae congue lectus, at porta eros. Donec turpis erat, congue sit amet tempor sit amet, feugiat cursus metus. Morbi semper bibendum nisi, vehicula vehicula enim dapibus at. Proin eu odio bibendum, vulputate lacus eu, posuere diam. Maecenas hendrerit ut turpis non consectetur. Fusce non magna quam.
+
+Integer sodales, sem nec vehicula lacinia, sapien mauris mollis neque, non commodo lectus sem vitae purus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Morbi molestie odio ac nisi tempor pretium. Aenean molestie mauris vestibulum dolor rhoncus, eu ultrices felis ultrices. Etiam sit amet dolor ac ex gravida lobortis. Aenean id mi congue lectus elementum facilisis. Phasellus ornare fringilla nibh, sed maximus erat. Donec lacinia ligula diam, eget convallis lectus fermentum eget. Pellentesque eget accumsan enim. Aenean nec felis consectetur, porttitor metus ut, mollis nisl. Aenean quis augue vehicula, maximus nibh sit amet, vestibulum nisi. Phasellus euismod massa non posuere euismod. Aliquam vitae dolor a enim maximus suscipit ac sed dui. Nunc est velit, sodales a justo sed, malesuada egestas mauris. Ut id turpis a ligula egestas pretium.
+
+Nullam tempus turpis ac nulla luctus, eu luctus elit pellentesque. Proin scelerisque mattis vulputate. Donec convallis arcu ac ex vehicula feugiat. Integer volutpat mattis orci ac ultricies. Praesent in convallis sem. Proin placerat odio vitae dolor imperdiet, ut condimentum augue ornare. Interdum et malesuada fames ac ante ipsum primis in faucibus.
+
+Sed ut sem leo. Suspendisse pharetra magna a luctus maximus. Nunc ac ultricies nibh. Duis eget metus nisl. Aenean lobortis consequat ipsum nec dignissim. Sed facilisis dignissim mi, et dictum magna. Quisque cursus elit non lectus semper dapibus. Vivamus dapibus nibh ut turpis egestas dictum. Nunc faucibus molestie commodo. Praesent eleifend, massa ac scelerisque sollicitudin, massa nunc mattis nibh, eu congue libero eros quis odio. In malesuada neque sit amet justo tincidunt euismod."/>
 
     </android.support.constraint.ConstraintLayout>
 </ScrollView>
